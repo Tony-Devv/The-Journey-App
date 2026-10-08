@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>الرحلة — نزّل التطبيق</title>
+<meta name="description" content="نزّل تطبيق الرحلة على الأندرويد. رحلة تعليمية تفاعلية، 15 محطة من الخروج من مصر إلى أقرب أرض الموعد.">
+<meta name="theme-color" content="#2A1A0C">
+<link rel="icon" href="assets/icon-192.png" sizes="192x192">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<meta property="og:title" content="الرحلة — نزّل التطبيق">
+<meta property="og:description" content="رحلة تعليمية تفاعلية، 15 محطة من الخروج من مصر إلى أقرب أرض الموعد.">
+<meta property="og:image" content="https://tony-devv.github.io/The-Journey-App/assets/preview.jpg">
+<meta property="og:type" content="website">
+<!-- No <link rel=preload> for the backdrop: srcset means the browser picks the
+     520w or 1000w file itself, and preloading one of them caused the other to
+     be fetched and discarded on high-DPR phones. fetchpriority on the <img>
+     already gives it top priority. -->
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<div class="backdrop" aria-hidden="true">
+  <img src="assets/bg-journey-sm.jpg"
+       srcset="assets/bg-journey-sm.jpg 520w, assets/bg-journey.jpg 1000w"
+       sizes="100vw"
+       alt="" fetchpriority="high" decoding="async">
+</div>
+
+<main class="wrap">
+
+  <header class="hero">
+    <img class="icon" src="assets/icon-192.png" alt="أيقونة تطبيق الرحلة" width="112" height="112">
+    <h1>الرحلة</h1>
+    <p class="rule" aria-hidden="true"><span></span><i>✦</i><span></span></p>
+    <p class="tagline">خمس عشرة محطة، وكل محطة وراها حكاية.<br>ابدأ من الأول وكمّل لآخر الأرض.</p>
+  </header>
+
+  <a class="btn" id="dl" href="https://github.com/Tony-Devv/The-Journey-App/releases/latest/download/The-Journey.apk"
+     rel="noopener" download>
+    <svg class="btn-ico" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 3v10m0 0 4-4m-4 4-4-4" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round"/>
+    </svg>
+    <span>نزّل التطبيق</span>
+  </a>
+
+  <p class="meta" id="meta" aria-live="polite">
+    <span class="chip" id="ver"><span class="spin"></span>بنشوف آخر نسخة…</span>
+  </p>
+
+  <section class="panel">
+    <h2>
+      <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.6"/>
+        <path d="m15.5 8.5-2 5-5 2 2-5z" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="1.4" fill="currentColor"/>
+      </svg>
+      عن التطبيق
+    </h2>
+    <p class="about-text">
+      مغامرة تعليمية في رحلة بني إسرائيل، تجمّع بين التعلّم والقصة والتجربة. ١٥ محطة
+      مليئة بالمواقف والتحديات، والدروس اللي تأخذك أقرب إلى الله.
+    </p>
+    <img class="about-art" src="assets/about-art.jpg" alt="" width="760" height="427" loading="lazy" decoding="async">
+  </section>
+
+  <details class="howto">
+    <summary>
+      <span class="sum-label">
+        <svg class="ico" viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="12" r="3.2" fill="none" stroke="currentColor" stroke-width="1.7"/>
+          <path d="M12 2.6v2.6M12 18.8v2.6M21.4 12h-2.6M5.2 12H2.6M18.6 5.4l-1.8 1.8M7.2 16.8l-1.8 1.8M18.6 18.6l-1.8-1.8M7.2 7.2 5.4 5.4"
+                fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+        </svg>
+        طريقة التثبيت
+      </span>
+      <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="m6 9 6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.4"
+              stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </summary>
+    <ol>
+      <li>دوس على <strong>نزّل التطبيق</strong> اللي فوق.</li>
+      <li>الموبايل هيسألك تسمح للتثبيت من مصدر برّه Google Play. دوس <strong>إعدادات</strong> وفعّل <strong>السماح من هذا المصدر</strong>، وبعدين ارجع واضغط <strong>تثبيت</strong>.</li>
+      <li>افتح <strong>الرحلة</strong> من تطبيقاتك.</li>
+    </ol>
+    <p class="fine">محتاج أندرويد 7.0 (API 24) أو أحدث. الملف ده APK رسمي بنزله من المطوّر نفسه.</p>
+  </details>
+
+  <section class="contact">
+    <h2><span class="rule side" aria-hidden="true"></span>عندك سؤال؟<span class="rule side" aria-hidden="true"></span></h2>
+    <p class="fine lead">تواصل معانا على</p>
+    <div class="mails">
+      <a class="mail" href="mailto:antonzakaria43@gmail.com">
+        <span class="mail-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m3.5 7 8.5 6.5L20.5 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="mail-text">antonzakaria43@gmail.com</span>
+      </a>
+      <a class="mail" href="mailto:bassantsarea@gmail.com">
+        <span class="mail-ico" aria-hidden="true">
+          <svg viewBox="0 0 24 24">
+            <rect x="2.5" y="5" width="19" height="14" rx="2.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+            <path d="m3.5 7 8.5 6.5L20.5 7" fill="none" stroke="currentColor" stroke-width="1.8"
+                  stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="mail-text">bassantsarea@gmail.com</span>
+      </a>
+    </div>
+    <p class="rule wide" aria-hidden="true"><i>✦</i></p>
+  </section>
+
+  <footer>
+    <a href="https://github.com/Tony-Devv/The-Journey-App/releases/latest" rel="noopener">كل الإصدارات</a>
+    <span id="released">الرحلة</span>
+  </footer>
+
+</main>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

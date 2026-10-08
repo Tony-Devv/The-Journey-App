@@ -1,0 +1,19 @@
+# APKs live in GitHub Releases, not in git history.
+# The build is ~134 MB and git refuses any file over 100 MB.
+*.apk
+*.aab
+*.jks
+*.keystore
+
+# Android signing material must never be committed.
+android/key.properties
+key.properties
+
+# Local scratch
+.openchamber/
+node_modules/
+.DS_Store
+Thumbs.db
+*.log
+# Full-resolution artwork lives outside the repo; the site uses optimised copies.
+/Background.png

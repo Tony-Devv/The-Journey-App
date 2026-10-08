@@ -1,0 +1,493 @@
+/* ===========================================================================
+   الرحلة — download page
+
+   Built over the app's own painted desert scene: warm ochre and gold on deep
+   brown, parchment panels, no flat colour fields. Every size below is either a
+   fluid clamp or a percentage, so the layout adapts to any phone or PC.
+
+   The backdrop is a real element with object-fit: cover rather than a body
+   background, because background-attachment: fixed misbehaves on mobile
+   browsers (it paints against the viewport and leaves bare bands on scroll).
+   =========================================================================== */
+
+:root {
+  /* ink */
+  --ink:        #1B1208;
+  --ink-soft:   #4A3520;
+  --muted:      #6B563C;
+
+  /* brand */
+  --green:      #2F6B4F;
+  --green-dark: #1F4A37;
+
+  /* gold, sampled from the app icon's compass */
+  --gold:       #D9A521;
+  --gold-soft:  #F2D98C;
+  --gold-line:  rgba(217, 165, 33, .42);
+
+  /* parchment */
+  --parchment:      #FBF3DF;
+  --parchment-2:    #F3E7CB;
+  --line:      #E2D2AE;
+
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+
+html {
+  /* Deepest tone in the artwork, so any un-painted edge blends in. */
+  background: #2A1A0C;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  position: relative;
+  /* Transparent: a colour here would cover the backdrop entirely. */
+  background: transparent;
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  font-family: "Noto Kufi Arabic", "Cairo", "Tajawal", "Segoe UI",
+               ui-sans-serif, system-ui, sans-serif;
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- backdrop ---------- */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  background: #2A1A0C;
+}
+
+.backdrop img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* Framing the sun, the valley and the pilgrim column: roughly the upper
+     two-thirds of the painting. */
+  object-position: center 38%;
+}
+
+/* Warm veil for legibility. Light overall so the painting stays the point;
+   heavier only where text sits. */
+.backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg,
+      rgba(32, 20, 10, .46) 0%,
+      rgba(32, 20, 10, .16) 24%,
+      rgba(32, 20, 10, .26) 54%,
+      rgba(32, 20, 10, .58) 84%,
+      rgba(32, 20, 10, .80) 100%);
+}
+
+/* Tall phones crop to the centre, which lands on the pilgrims. */
+@media (max-aspect-ratio: 3/4) {
+  .backdrop img { object-position: center 46%; }
+}
+
+/* ---------- layout ---------- */
+
+.wrap {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 520px;
+  margin: 0 auto;
+  padding: clamp(22px, 6vw, 46px) clamp(16px, 4.5vw, 26px)
+           calc(34px + env(safe-area-inset-bottom));
+  padding-left: max(clamp(16px, 4.5vw, 26px), env(safe-area-inset-left));
+  padding-right: max(clamp(16px, 4.5vw, 26px), env(safe-area-inset-right));
+}
+
+.wrap > * + * { margin-top: clamp(14px, 3.2vw, 20px); }
+
+/* ---------- hero ---------- */
+
+/* The painting is bright where the sun sits, and which part of it lands behind
+   the title changes with the viewport. This soft scrim follows the hero, so the
+   gold title stays readable on any screen without darkening the whole picture. */
+.hero { position: relative; text-align: center; }
+
+.hero::before {
+  content: "";
+  position: absolute;
+  /* Kept inside the box: the radial already reaches full transparency before
+     the edges, so clipping here is invisible and avoids page overflow. */
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(62% 66% at 50% 42%,
+              rgba(24, 14, 6, .66) 0%,
+              rgba(24, 14, 6, .46) 48%,
+              rgba(24, 14, 6, 0) 76%);
+}
+
+.icon {
+  width: clamp(84px, 24vw, 112px);
+  height: auto;
+  aspect-ratio: 1;
+  border-radius: clamp(20px, 5.5vw, 26px);
+  border: 2px solid var(--gold);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .5), 0 0 0 5px rgba(217, 165, 33, .12);
+}
+
+h1 {
+  margin: clamp(12px, 3vw, 18px) 0 0;
+  font-size: clamp(2.6rem, 12vw, 3.4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -.01em;
+  /* Gold, as in the reference. */
+  background: linear-gradient(180deg, #FBE9A8 0%, var(--gold) 62%, #B07C10 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, .85)) drop-shadow(0 3px 14px rgba(0, 0, 0, .7));
+}
+
+/* decorative divider: line, star, line */
+.rule {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: clamp(8px, 2vw, 12px) auto 0;
+  max-width: 260px;
+  color: var(--gold-soft);
+}
+
+.rule > span {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+}
+
+.rule > i {
+  font-style: normal;
+  font-size: .95rem;
+  color: var(--gold);
+  text-shadow: 0 0 10px rgba(217, 165, 33, .5);
+}
+
+.tagline {
+  margin: clamp(10px, 2.4vw, 14px) auto 0;
+  max-width: 34ch;
+  font-size: clamp(.94rem, 3.6vw, 1.06rem);
+  line-height: 1.75;
+  color: #F6EBD2;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, .7);
+}
+
+/* ---------- download button ---------- */
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 64px;
+  padding: 16px 24px;
+  font: inherit;
+  font-size: clamp(1.1rem, 4.4vw, 1.25rem);
+  font-weight: 800;
+  color: #FDF7E7;
+  background: linear-gradient(180deg, #35795A 0%, var(--green-dark) 100%);
+  border: 2px solid var(--gold);
+  border-radius: 999px;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .45), inset 0 1px 0 rgba(255, 255, 255, .12);
+  -webkit-tap-highlight-color: transparent;
+  transition: transform .12s ease, filter .2s ease;
+}
+
+.btn:hover { filter: brightness(1.08); }
+.btn:active { transform: scale(.985); }
+.btn:focus-visible { outline: 3px solid var(--gold-soft); outline-offset: 3px; }
+
+.btn-ico { width: 26px; height: 26px; flex: 0 0 auto; }
+
+/* ---------- version chip ---------- */
+
+.meta { margin: 0; text-align: center; min-height: 1px; }
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  font-size: .8rem;
+  color: #F0E2C4;
+  background: rgba(27, 18, 8, .58);
+  border: 1px solid var(--gold-line);
+  border-radius: 999px;
+  font-variant-numeric: tabular-nums;
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.spin {
+  width: 11px; height: 11px;
+  border: 2px solid rgba(242, 217, 140, .35);
+  border-top-color: var(--gold-soft);
+  border-radius: 50%;
+  animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .spin { animation: none; }
+  .btn { transition: none; }
+}
+
+/* ---------- parchment panels ---------- */
+
+.panel,
+.howto {
+  position: relative;
+  background: linear-gradient(180deg,
+              rgba(251, 243, 223, .97) 0%,
+              rgba(246, 236, 213, .97) 100%);
+  border: 1px solid var(--gold-line);
+  border-radius: var(--radius);
+  box-shadow: 0 16px 38px rgba(0, 0, 0, .38);
+}
+
+/* Faded illustration bleeding in from the end edge. */
+.panel { padding: clamp(18px, 4.4vw, 24px); overflow: hidden; }
+
+.about-art {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  height: 100%;
+  width: auto;
+  max-width: 46%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .17;
+  filter: sepia(.3) saturate(.7);
+  -webkit-mask-image: linear-gradient(to left, transparent, #000 88%);
+          mask-image: linear-gradient(to left, transparent, #000 88%);
+  pointer-events: none;
+}
+
+.panel h2,
+.howto summary {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: clamp(1.15rem, 4.4vw, 1.3rem);
+  font-weight: 800;
+  color: var(--green-dark);
+}
+
+.ico { width: 22px; height: 22px; flex: 0 0 auto; color: var(--gold); }
+
+.about-text {
+  position: relative;
+  margin: 12px 0 0;
+  padding-inline-end: clamp(0px, 2vw, 8px);
+  font-size: clamp(.9rem, 3.5vw, .97rem);
+  line-height: 1.95;
+  color: var(--ink-soft);
+  text-align: start;
+}
+
+/* ---------- how to install ---------- */
+
+.howto { overflow: hidden; }
+
+.howto summary {
+  cursor: pointer;
+  padding: clamp(14px, 3.8vw, 18px) clamp(18px, 4.4vw, 24px);
+  list-style: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.howto summary::-webkit-details-marker { display: none; }
+
+.sum-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.chev {
+  width: 22px; height: 22px;
+  flex: 0 0 auto;
+  color: var(--green);
+  transition: transform .25s ease;
+}
+
+.howto[open] .chev { transform: rotate(180deg); }
+
+.howto ol {
+  margin: 0;
+  padding: 0 clamp(18px, 4.4vw, 24px) 4px;
+  font-size: clamp(.88rem, 3.4vw, .95rem);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.howto ol { list-style: none; counter-reset: step; padding-top: 2px; }
+
+.howto li {
+  counter-increment: step;
+  position: relative;
+  padding-inline-start: 30px;
+  padding-block: 6px;
+}
+
+/* gold numerals instead of default markers */
+.howto li::before {
+  content: counter(step);
+  position: absolute;
+  inset-inline-start: 0;
+  top: 8px;
+  width: 21px; height: 21px;
+  display: grid;
+  place-items: center;
+  font-size: .74rem;
+  font-weight: 800;
+  color: var(--green-dark);
+  background: var(--gold-soft);
+  border-radius: 50%;
+}
+
+.howto li + li { border-top: 1px dashed rgba(122, 100, 73, .22); }
+
+.howto .fine {
+  margin: 8px 0 0;
+  padding: 0 clamp(18px, 4.4vw, 24px) clamp(14px, 3.6vw, 18px);
+  font-size: .8rem;
+  line-height: 1.7;
+  color: var(--muted);
+}
+
+.fine { margin: 11px 0 0; font-size: .8rem; line-height: 1.7; color: var(--muted); }
+
+/* ---------- contact ---------- */
+
+.contact { text-align: center; }
+
+.contact h2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin: 0;
+  font-size: clamp(1.3rem, 5.2vw, 1.55rem);
+  font-weight: 800;
+  color: #FBF0D6;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, .75);
+}
+
+.rule.side {
+  flex: 1;
+  max-width: 90px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-line), transparent);
+}
+
+.contact .lead {
+  margin: 8px 0 0;
+  color: #EBDCBC;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .7);
+}
+
+.mails {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+  /* two side by side on wider phones, stacked on narrow ones */
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 430px) {
+  .mails { grid-template-columns: 1fr 1fr; }
+}
+
+.mail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 10px 14px;
+  border-radius: 14px;
+  text-decoration: none;
+  color: #FDF7E7;
+  background: rgba(27, 18, 8, .55);
+  border: 1px solid var(--gold-line);
+  -webkit-tap-highlight-color: transparent;
+  transition: background .2s ease, border-color .2s ease, transform .12s ease;
+}
+
+.mail:hover {
+  background: rgba(31, 74, 55, .78);
+  border-color: var(--gold);
+}
+
+.mail:active { transform: scale(.99); }
+
+.mail-ico {
+  display: grid;
+  place-items: center;
+  width: 32px; height: 32px;
+  flex: 0 0 auto;
+  color: #F3E4BC;
+  background: var(--green-dark);
+  border-radius: 10px;
+}
+
+.mail-ico svg { width: 19px; height: 19px; }
+
+.mail-text {
+  direction: ltr;
+  font-size: clamp(.8rem, 3.2vw, .88rem);
+  font-weight: 700;
+  text-align: start;
+  word-break: break-all;
+}
+
+.rule.wide {
+  margin-top: clamp(16px, 4vw, 22px);
+  justify-content: center;
+}
+
+/* ---------- footer ---------- */
+
+footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-size: .78rem;
+  color: #DCC9A4;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, .7);
+}
+
+footer a {
+  display: inline-block;
+  padding: 14px 4px;   /* >= 44px tap target */
+  color: #FBF0D6;
+  text-decoration: none;
+}
+
+footer a:hover { text-decoration: underline; }
+
+footer span[aria-hidden]::before { content: "·"; margin-inline-end: 10px; }
