@@ -19,9 +19,9 @@
 
 | | |
 | --- | --- |
-| **الإصدار** | [v1.1.0](https://github.com/Tony-Devv/The-Journey-App/releases/tag/v1.1.0) |
+| **الإصدار** | [v1.2.0](https://github.com/Tony-Devv/The-Journey-App/releases/tag/v1.2.0) |
 | **المتطلبات** | أندرويد 7.0 (API 24) أو أحدث |
-| **الحجم** | ‏133 MB |
+| **الحجم** | ‏132 MB |
 | **السعر** | مجاني |
 | **إعلانات** | لا يوجد |
 
